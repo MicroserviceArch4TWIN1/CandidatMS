@@ -15,4 +15,31 @@ public class CandidatService implements ICandidat {
     public List<Candidat> allCandidat() {
         return candidatRepo.findAll();
     }
+
+    @Override
+    public Candidat getCandidatById(int id) {
+        return candidatRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Candidat addCandidat(Candidat c) {
+        return candidatRepo.save(c);
+    }
+
+    @Override
+    public Candidat updateCandidat(int id, Candidat c) {
+        Candidat existing = candidatRepo.findById(id).orElse(null);
+        if (existing != null) {
+            existing.setNom(c.getNom());
+            existing.setPrenom(c.getPrenom());
+            existing.setEmail(c.getEmail());
+            return candidatRepo.save(existing);
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteCandidat(int id) {
+        candidatRepo.deleteById(id);
+    }
 }

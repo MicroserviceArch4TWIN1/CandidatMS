@@ -12,6 +12,9 @@ public class CandidatRestController {
     @Autowired
     private ICandidat iCandidat;
 
+    @Autowired
+    CandidatService candidatService;
+
     @GetMapping("/hello")
     public String getTitle() {
         return "Welcome from Candidat4TWIN1";
@@ -46,5 +49,14 @@ public class CandidatRestController {
     @DeleteMapping("/{id}")
     public void deleteCandidat(@PathVariable int id) {
         iCandidat.deleteCandidat(id);
+    }
+
+    @GetMapping("/jobs")
+    public List<Job> getAllJobs() {
+        return candidatService.getJobsListe();
+    }
+    @GetMapping("/jobs/{id}")
+    public Job getJobbyId(@PathVariable("id") int id) {
+        return candidatService.getJobClient(id);
     }
 }
